@@ -62,8 +62,11 @@ d3.select("#countrySelector")
             .text(function(d){ return d;});
         }
         else{
+            console.log('in else')
         const stateOptions = tableData.filter(sightingData=>sightingData.country === selectedCountry);
+        console.log(stateOptions)
         const selectedStates = d3.select("#stateSelector").selectAll("option").data(d3.map(stateOptions, function(d){
+            console.log(d.state)
             return d.state;}).keys());
         selectedStates.exit().remove();
         selectedStates.enter()
@@ -72,13 +75,11 @@ d3.select("#countrySelector")
             .attr("value",function(d){ return d;})
             .text(function(d){ return d;});
 
-        const addSelect = selectedStates.data(["--Select--"]);
-        addSelect.enter()
-            .append("option")
-            .merge(addSelect)
-            .attr("value",function(d){ return d;})
-            .text(function(d){ 
-                return d;})
+        let stateSelector = d3.select('#stateSelector');
+        stateSelector.insert("option", ":first-child")
+            .attr("value", "--Select--")
+            .property("selected", "selected")
+            .text('--Select--')
         }
     });
 
@@ -97,13 +98,13 @@ d3.select("#stateSelector")
             .merge(selectedCities)
             .attr("value",function(d){ return d;})
             .text(function(d){ return d;});
-        const addSelect = selectedCities.data(["--Select--"]);
-        addSelect.enter()
-            .append("option")
-            .merge(addSelect)
-            .attr("value",function(d){ return d;})
-            .text(function(d){ 
-                return d;})
+
+        let citySelector = d3.select('#citySelector');
+        citySelector.insert("option", ":first-child")
+            .attr("value", "--Select--")
+            .property("selected", "selected")
+            .text('--Select--')
+        
     });
 
 // after seclecting city, populate shape dropdown based on selected city
@@ -122,13 +123,12 @@ d3.select("#citySelector")
             .merge(selectedShapes)
             .attr("value",function(d){ return d;})
             .text(function(d){ return d;});
-        const addSelect = selectedShapes.data(["--Select--"]);
-        addSelect.enter()
-            .append("option")
-            .merge(addSelect)
-            .attr("value",function(d){ return d;})
-            .text(function(d){ 
-                return d;})
+
+        let shapeSelector = d3.select('#shapeSelector');
+        shapeSelector.insert("option", ":first-child")
+            .attr("value", "--Select--")
+            .property("selected", "selected")
+            .text('--Select--')
     });
 
 const submit = d3.select("#filter-btn");
